@@ -1,0 +1,53 @@
+---
+import {
+  FacebookShareButton,
+  HackerNewsShareButton,
+  LinkedInShareButton,
+  RedditShareButton,
+  SocialShare,
+  TwitterShareButton,
+} from 'astro-social-share';
+
+import { DEFAULT_METADATA } from '@/constants/metadata';
+import { cn } from '@/utils/styles';
+
+import type { ComponentProps } from 'astro/types';
+
+type SocialShareProps = Omit<ComponentProps<typeof SocialShare>, 'buttons'>;
+export interface Props extends SocialShareProps {
+  class?: string;
+}
+const { class: className, ...shareProps } = Astro.props;
+
+const { title, description } = DEFAULT_METADATA;
+const defaultProps = { description, title };
+
+const buttons = [
+  TwitterShareButton,
+  FacebookShareButton,
+  RedditShareButton,
+  LinkedInShareButton,
+  HackerNewsShareButton,
+];
+
+const props = { ...defaultProps, ...shareProps };
+---
+
+<div class={cn('inline-flex items-center gap-2', className)}>
+  <span class="text-base font-bold">Share:</span>
+  <SocialShare {...props} {buttons} />
+</div>
+
+<style is:global slot="astro-social-share-css">
+  .astro-social-share {
+    @apply my-0;
+  }
+
+  .social-share-btn {
+    @apply !mr-4 inline-block h-6 w-6;
+
+    svg {
+      @apply h-full w-full fill-captions;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import Link from '@/components/Link.astro';
+import { ROUTES } from '@/constants/routes';
+import { CONFIG_CLIENT } from '@/config/client';
+
+const { AUTHOR_GITHUB, AUTHOR_NAME, REPO_URL } = CONFIG_CLIENT;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-base-300 px-4 py-8">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div class="space-y-1 text-sm text-content">
+      <p class="font-semibold text-base-content">{AUTHOR_NAME}</p>
+      <p>记录 AI Agent、Go 工程化、项目重构与学习过程。</p>
+      <p>&copy; {year} {AUTHOR_NAME}. Built with Astro and GitHub Pages.</p>
+    </div>
+
+    <ul class="flex flex-wrap items-center gap-3 text-base sm:gap-5">
+      <li>
+        <Link
+          href={AUTHOR_GITHUB}
+          target="_blank"
+          rel="me noreferrer noopener"
+          title="GitHub profile"
+          class="flex items-center gap-2"
+          variant="nav"
+        >
+          <Icon name="mdi:github" class="h-5 w-5 fill-current" />
+          <span>GitHub</span>
+        </Link>
+      </li>
+      <li>
+        <Link
+          href={REPO_URL}
+          target="_blank"
+          rel="noreferrer noopener"
+          title="Blog repository"
+          class="flex items-center gap-2"
+          variant="nav"
+        >
+          <Icon name="mdi:source-repository" class="h-5 w-5 fill-current" />
+          <span>Repo</span>
+        </Link>
+      </li>
+      <li>
+        <Link
+          href={ROUTES.API.FEED_RSS}
+          target="_blank"
+          title="RSS feed"
+          class="flex items-center gap-2"
+          variant="nav"
+        >
+          <Icon name="mdi:rss" class="h-5 w-5 fill-current" />
+          <span>RSS</span>
+        </Link>
+      </li>
+    </ul>
+  </div>
+</footer>
